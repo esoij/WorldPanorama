@@ -1,7 +1,10 @@
 package net.kr1v.worldpanorama.client.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.kr1v.worldpanorama.client.WorldPanoramaClient;
 import net.kr1v.worldpanorama.client.config.WorldPanoramaConfig;
+import net.kr1v.worldpanorama.client.interfaces.Tweened;
 import net.kr1v.worldpanorama.client.util.Tweener;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,9 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TitleScreen.class)
-public abstract class TitleScreenMixin extends Screen {
+public abstract class TitleScreenMixin extends Screen implements Tweened {
 	@Unique
 	private final Tweener scaleTweener = new Tweener(() -> 1, () -> WorldPanoramaConfig.ANIMATION_SPEED);
+	
+	@Override
+	public Tweener world_panorama$getTweener() {
+		return scaleTweener;
+	}
 	
 	protected TitleScreenMixin(Component title) {
 		super(title);
@@ -26,7 +34,6 @@ public abstract class TitleScreenMixin extends Screen {
 	@Inject(method = "init", at = @At("RETURN"))
 	private void hasTitleScreenOpen(CallbackInfo ci) {
 		WorldPanoramaClient.hasTitleScreenOpen = true;
-		scaleTweener.snapToValue(0);
 	}
 
 	@Inject(method = "shouldCloseOnEsc", at = @At("HEAD"), cancellable = true)
@@ -42,15 +49,12 @@ public abstract class TitleScreenMixin extends Screen {
 		if (WorldPanoramaConfig.ENABLED && WorldPanoramaConfig.SHOULD_PAUSE && minecraft.player != null) cir.setReturnValue(true);
 	}
 	
-	@Inject(method = "extractRenderState", at = @At("HEAD"))
-	void yeahhh(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+	@WrapMethod(method = "extractRenderState")
+	private void wrap(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, Operation<Void> original) {
 		scaleTweener.update();
 		graphics.pose().pushMatrix();
 		graphics.pose().scaleAround(((float) scaleTweener.get()), width / 2F, height / 2F);
-	}
-	
-	@Inject(method = "extractRenderState", at = @At("TAIL"))
-	void yeahhhj(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+		original.call(graphics, mouseX, mouseY, a);
 		graphics.pose().popMatrix();
 	}
 }

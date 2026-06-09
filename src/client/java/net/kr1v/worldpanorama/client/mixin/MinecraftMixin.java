@@ -82,7 +82,7 @@ public abstract class MinecraftMixin {
 	private Boolean prevHideGui = null;
 	
 	@Unique
-	private Tweener pitchTweener = new Tweener(() -> WorldPanoramaConfig.PANORAMA_PITCH, () -> WorldPanoramaConfig.ANIMATION_SPEED);
+	private final Tweener pitchTweener = new Tweener(() -> WorldPanoramaConfig.PANORAMA_PITCH, () -> WorldPanoramaConfig.ANIMATION_SPEED);
 
 	@Inject(method = "renderFrame", at = @At("HEAD"))
 	private void doThing(boolean advanceGameTime, CallbackInfo ci) {

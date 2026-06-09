@@ -2,6 +2,7 @@ package net.kr1v.worldpanorama.client.mixin;
 
 import net.kr1v.worldpanorama.client.WorldPanoramaClient;
 import net.kr1v.worldpanorama.client.config.WorldPanoramaConfig;
+import net.kr1v.worldpanorama.client.interfaces.Tweened;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -45,6 +46,7 @@ public abstract class GuiMixin {
 		if (screen instanceof PauseScreen && WorldPanoramaConfig.ENABLED && WorldPanoramaClient.isInTitleScreen) {
 			ci.cancel();
 			setScreen(theTitleScreen);
+			((Tweened) theTitleScreen).world_panorama$getTweener().snapToValue(0);
 		}
 	}
 	

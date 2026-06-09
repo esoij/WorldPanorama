@@ -18,18 +18,9 @@ public class WorldPanoramaConfig {
 	
 	@SerialEntry
 	public static boolean ENABLED = true;
-	@SerialEntry
-	public static boolean GENERATE_NEW_EVERY_TIME = true;
-	@SerialEntry
-	public static String WORLD_NAME = "Panorama World";
+	//camera
 	@SerialEntry
 	public static long WORLD_SEED = WorldOptions.randomSeed();
-//	@SerialEntry
-//	public static double PLAYER_STARTING_X = Double.NaN;
-//	@SerialEntry
-//	public static double PLAYER_STARTING_Y = Double.NaN;
-//	@SerialEntry
-//	public static double PLAYER_STARTING_Z = Double.NaN;
 	@SerialEntry
 	public static boolean ROTATE_PANORAMA = true;
 	@SerialEntry
@@ -41,9 +32,14 @@ public class WorldPanoramaConfig {
 	@SerialEntry
 	public static int PANORAMA_FOV = 30;
 	@SerialEntry
-	public static boolean SHOULD_PAUSE = false;
-	@SerialEntry
 	public static float ANIMATION_SPEED = 20;
+	//world
+	@SerialEntry
+	public static String WORLD_NAME = "Panorama World";
+	@SerialEntry
+	public static boolean GENERATE_NEW_EVERY_TIME = true;
+	@SerialEntry
+	public static boolean SHOULD_PAUSE = false;
 	
 	static {
 		HANDLER.load();
