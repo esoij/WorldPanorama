@@ -34,9 +34,6 @@ dependencies {
 	
 	implementation("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
-	
 	implementation("dev.isxander:yet-another-config-lib:${providers.gradleProperty("yacl_version").get()}")
 	implementation("com.terraformersmc:modmenu:20.0.0-alpha.1")
 }
