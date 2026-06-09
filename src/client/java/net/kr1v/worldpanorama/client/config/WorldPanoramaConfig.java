@@ -20,8 +20,6 @@ public class WorldPanoramaConfig {
 	public static boolean ENABLED = true;
 	//camera
 	@SerialEntry
-	public static long WORLD_SEED = WorldOptions.randomSeed();
-	@SerialEntry
 	public static boolean ROTATE_PANORAMA = true;
 	@SerialEntry
 	public static float PANORAMA_YAW = 0;
@@ -34,6 +32,8 @@ public class WorldPanoramaConfig {
 	@SerialEntry
 	public static float ANIMATION_SPEED = 20;
 	//world
+	@SerialEntry
+	public static long WORLD_SEED = WorldOptions.randomSeed();
 	@SerialEntry
 	public static String WORLD_NAME = "Panorama World";
 	@SerialEntry
